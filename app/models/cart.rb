@@ -19,7 +19,6 @@ class Cart < ActiveRecord::Base
     else
       line_item = self.line_items.build(item_id: itemid)
     end
-    line_item.save
     line_item
   end
 
