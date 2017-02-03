@@ -19,7 +19,17 @@ class Cart < ActiveRecord::Base
     else
       line_item = self.line_items.build(item_id: itemid)
     end
+    line_item.save
     line_item
+  end
+
+  def checkout
+    self.status = "Submitted"
+    self.line_items.each do |li|
+      li.item.inventory -= li.quantity
+      li.item.save
+    end
+    self.save
   end
 
 end
